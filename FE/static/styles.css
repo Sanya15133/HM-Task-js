@@ -6,9 +6,16 @@ h1 {
   color: black;
 }
 
-img {
-  background-size: cover;
-  margin: 0 auto;
-  height: 150px;
-  width: 100%;
+nav {
+  overflow: hidden;
+  background-color: #030303;
+  position: relative;
+}
+
+a {
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: block;
 }
