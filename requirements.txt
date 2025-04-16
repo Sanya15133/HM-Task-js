@@ -1,0 +1,14 @@
+CRUD APP
+
+Endpoints
+
+1: GET Task by ID
+2: GET all Tasks
+3: PATCH Upate status of a Task
+4: POST Create a Task
+5: DELETE Task by ID
+
+Task Requirements for POST
+
+title, description, status, due date, will also need unique ID
+
