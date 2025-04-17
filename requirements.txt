@@ -16,3 +16,5 @@ CREATE TABLE tasks (
 id INTEGER PRIMARY KEY, description TEXT NOT NULL, 
 status TEXT NOT NULL, duedate DATE
 );
+
+ INSERT into tasks (description, status, duedate) VALUES ('Annual review', 'Pending', '08/11/2026');
