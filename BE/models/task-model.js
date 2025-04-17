@@ -3,8 +3,9 @@ const dbpath = "BE/tasksdatabase.db";
 const db = new sqlite3.Database(dbpath);
 
 exports.fetchTasks = () => {
-  console.log("hello");
-  return db.all("SELECT * FROM tasks");
+  const results = db.prepare("SELECT * FROM tasks");
+  console.log(results);
+  return results.all();
 };
 
 exports.fetchTaskById = async (id) => {
