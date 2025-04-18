@@ -12,7 +12,8 @@ exports.fetchTasks = async () => {
   return rows;
 };
 
-
 exports.fetchTaskById = async (id) => {
-  const query = `SELECT * FROM tasks WHERE id = $1;`;
+  const row = await dbAll(`SELECT * FROM tasks WHERE id = $1;`, [id]);
+  console.log(row);
+  return row;
 };
