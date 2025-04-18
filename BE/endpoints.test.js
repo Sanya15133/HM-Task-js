@@ -13,8 +13,8 @@ test("GET/ getTasks will return all tasks in database", async () => {
     expect(result).toHaveProperty("duedate");
   });
 });
-test.only("GET/ getTasksById:id will return task by ID", async () => {
-  const result = await request(app).get("/tasks/10");
+test("GET/ getTasksById:id will return task by ID", async () => {
+  const result = await request(app).get("/tasks/1");
   const resultArray = result.body.task;
   resultArray.forEach((result) => {
     expect(result).toMatchObject({
@@ -24,4 +24,9 @@ test.only("GET/ getTasksById:id will return task by ID", async () => {
       status: expect.any(String),
     });
   });
+});
+test("GET /tasks/:id should return 404 if task not found", async () => {
+  const result = await request(app).get("/tasks/9999");
+  expect(result.body.task.status).toBe(404);
+  expect(result.body.task.msg).toBe("Task cannot be found");
 });
