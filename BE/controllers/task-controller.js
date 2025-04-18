@@ -1,4 +1,8 @@
-const { fetchTaskById, fetchTasks } = require("../models/task-model");
+const {
+  fetchTaskById,
+  fetchTasks,
+  getTaskArrayToPost,
+} = require("../models/task-model");
 
 exports.getTasks = async (req, res, next) => {
   try {
@@ -20,6 +24,16 @@ exports.getTaskById = async (req, res, next) => {
       console.log("No tasks found in DB");
     }
     res.status(200).send({ task });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.postTask = async (req, res, next) => {
+  const { description, status, duedate } = req.body;
+  try {
+    const task = await getTaskArrayToPost(description, status, duedate);
+    res.status(201).send({ task });
   } catch (err) {
     next(err);
   }

@@ -30,3 +30,12 @@ test("GET /tasks/:id should return 404 if task not found", async () => {
   expect(result.body.task.status).toBe(404);
   expect(result.body.task.msg).toBe("Task cannot be found");
 });
+test.only("POST /tasks/:id should return 201 if task succesfully posted", async () => {
+  const body = {
+    description: "filing",
+    duedate: "15/09/2025",
+    status: "Pending",
+  };
+  const result = await request(app).post("/tasks").send(body);
+  expect(result.status).toBe(201);
+});

@@ -22,3 +22,17 @@ exports.fetchTaskById = async (id) => {
   }
   return row;
 };
+
+exports.getTaskArrayToPost = async (description, status, duedate) => {
+  const error = new Error("Missing Parameters");
+  error.msg = "Missing Parameters";
+  error.status = 400;
+  if (description.length === 0 || status.length === 0 || duedate.length === 0) {
+    return error;
+  }
+  const row = await dbAll(
+    `INSERT into tasks(description, status, duedate) VALUES ($1, $2, $3);`,
+    [description, status, duedate]
+  );
+  return row;
+};
