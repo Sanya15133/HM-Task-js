@@ -16,7 +16,9 @@ exports.getTaskById = async (req, res, next) => {
   const { id } = req.params;
   try {
     const task = await fetchTaskById(id);
-    console.log(task, "task in controller");
+    if (task.length === 0) {
+      console.log("No tasks found in DB");
+    }
     res.status(200).send({ task });
   } catch (err) {
     next(err);
