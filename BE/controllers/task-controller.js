@@ -2,6 +2,7 @@ const {
   fetchTaskById,
   fetchTasks,
   getTaskArrayToPost,
+  getTaskToDelete,
 } = require("../models/task-model");
 
 exports.getTasks = async (req, res, next) => {
@@ -34,6 +35,16 @@ exports.postTask = async (req, res, next) => {
   try {
     const task = await getTaskArrayToPost(description, status, duedate);
     res.status(201).send({ task });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.deleteTask = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const task = await getTaskToDelete(id);
+    res.status(202);
   } catch (err) {
     next(err);
   }

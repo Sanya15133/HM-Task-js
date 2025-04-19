@@ -36,3 +36,14 @@ exports.getTaskArrayToPost = async (description, status, duedate) => {
   );
   return row;
 };
+
+exports.getTaskToDelete = async (id) => {
+  const row = await dbAll(`DELETE * FROM tasks WHERE id = $1;`, [id]);
+  const error = new Error("Task cannot be found");
+  error.msg = "Task cannot be found";
+  error.status = 404;
+  if (!row || row.length === 0) {
+    return error;
+  }
+  return row;
+};
