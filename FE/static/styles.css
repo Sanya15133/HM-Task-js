@@ -2,14 +2,22 @@ body {
   background-color: rgb(240, 240, 237);
 }
 
-h1 {
+h1,
+h2,
+h3,
+input,
+button,
+label {
   color: black;
+  font-family: "GDS Transport", arial, sans-serif;
 }
 
 nav {
   overflow: hidden;
   background-color: #030303;
   position: relative;
+  font-family: "GDS Transport", arial, sans-serif;
+  font-size: xx-large;
 }
 
 a {
