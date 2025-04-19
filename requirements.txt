@@ -12,9 +12,9 @@ Task Requirements for POST
 
 title, description, status, due date, will also need unique ID
 
-CREATE TABLE tasks ( 
+CREATE TABLE tasks ( title TEXT NOT NULL,
 id INTEGER PRIMARY KEY, description TEXT NOT NULL, 
 status TEXT NOT NULL, duedate DATE
 );
 
- INSERT into tasks (description, status, duedate) VALUES ('Annual review', 'Pending', '08/11/2026');
+ INSERT into tasks (title, description, status, duedate) VALUES ('Review', 'Annual review', 'Pending', '08/11/2026');
