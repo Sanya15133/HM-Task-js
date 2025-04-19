@@ -27,7 +27,7 @@ exports.getTaskArrayToPost = async (description, status, duedate) => {
   const error = new Error("Missing Parameters");
   error.msg = "Missing Parameters";
   error.status = 400;
-  if (description.length === 0 || status.length === 0 || duedate.length === 0) {
+  if (!description || !status || !duedate) {
     return error;
   }
   const row = await dbAll(

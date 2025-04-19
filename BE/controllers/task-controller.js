@@ -34,6 +34,7 @@ exports.postTask = async (req, res, next) => {
   const { description, status, duedate } = req.body;
   try {
     const task = await getTaskArrayToPost(description, status, duedate);
+    console.log(task);
     res.status(201).send({ task });
   } catch (err) {
     next(err);
