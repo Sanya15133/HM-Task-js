@@ -30,7 +30,7 @@ test("GET /tasks/:id should return 404 if task not found", async () => {
   expect(result.body.task.status).toBe(404);
   expect(result.body.task.msg).toBe("Task cannot be found");
 });
-test.only("POST /tasks/:id should return 201 if task succesfully posted", async () => {
+test("POST /tasks/:id should return 201 if task succesfully posted", async () => {
   const body = {
     title: "Observations",
     description: "filing",
@@ -48,4 +48,9 @@ test("POST /tasks/:id should return 400 bad task, if missing parameters", async 
   const result = await request(app).post("/tasks").send(body);
   expect(result.body.task.status).toBe(400);
   expect(result.body.task.msg).toBe("Missing Parameters");
+});
+test.only("DELETE /tasks/:id should delete task by id", async () => {
+  const result = await request(app).delete("/tasks/2");
+  console.log(result);
+  expect(result.status).toBe(202);
 });
