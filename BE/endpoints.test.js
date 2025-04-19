@@ -30,16 +30,17 @@ test("GET /tasks/:id should return 404 if task not found", async () => {
   expect(result.body.task.status).toBe(404);
   expect(result.body.task.msg).toBe("Task cannot be found");
 });
-test("POST /tasks/:id should return 201 if task succesfully posted", async () => {
+test.only("POST /tasks/:id should return 201 if task succesfully posted", async () => {
   const body = {
+    title: "Observations",
     description: "filing",
-    duedate: "15/09/2025",
     status: "Pending",
+    duedate: "15/09/2025",
   };
   const result = await request(app).post("/tasks").send(body);
   expect(result.status).toBe(201);
 });
-test.only("POST /tasks/:id should return 400 bad task, if missing parameters", async () => {
+test("POST /tasks/:id should return 400 bad task, if missing parameters", async () => {
   const body = {
     duedate: "16/09/2025",
     status: "Pending",
