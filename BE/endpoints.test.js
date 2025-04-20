@@ -7,6 +7,7 @@ test("GET/ getTasks will return all tasks in database", async () => {
   expect(Array.isArray(result.body.tasks)).toBe(true);
   const resultArray = result.body.tasks;
   resultArray.forEach((result) => {
+    expect(result).toHaveProperty("title");
     expect(result).toHaveProperty("id");
     expect(result).toHaveProperty("description");
     expect(result).toHaveProperty("status");
@@ -18,6 +19,7 @@ test("GET/ getTasksById:id will return task by ID", async () => {
   const resultArray = result.body.task;
   resultArray.forEach((result) => {
     expect(result).toMatchObject({
+      title: expect.any(String),
       description: expect.any(String),
       duedate: expect.any(String),
       id: expect.any(Number),

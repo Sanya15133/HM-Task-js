@@ -40,7 +40,6 @@ exports.getTaskArrayToPost = async (title, description, status, duedate) => {
 
 exports.getTaskToDelete = async (id) => {
   const findRow = await this.fetchTaskById(id);
-  console.log(findRow);
   if (findRow.msg === "Task cannot be found") {
     const error = new Error("Task cannot be found");
     error.msg = "Task cannot be found";
@@ -52,4 +51,19 @@ exports.getTaskToDelete = async (id) => {
   error.msg = "Task has been deleted";
   error.status = 202;
   return error;
+};
+
+exports.getTasktoUpdateStatus = async (status, id) => {
+  const findRow = await this.fetchTaskById(id);
+  if (findRow.msg === "Task cannot be found") {
+    const error = new Error("Task cannot be found");
+    error.msg = "Task cannot be found";
+    error.status = 404;
+    return error;
+  }
+  const row = await dbAll("UPDATE tasks SET status = $1 WHERE id = $2;", [
+    status,
+    id,
+  ]);
+  return row;
 };
