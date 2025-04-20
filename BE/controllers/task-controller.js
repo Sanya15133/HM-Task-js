@@ -56,10 +56,12 @@ exports.deleteTask = async (req, res, next) => {
 exports.updateTaskStatus = async (req, res, next) => {
   const { id } = req.params;
   const { status } = req.body;
+  console.log("REQ.BODY:", req.body);
   try {
     const task = await getTasktoUpdateStatus(status, id);
-    res.status(task.status).send(task.msg);
+    res.status(task.status).json({ msg: task.msg });
   } catch (err) {
+    console.log(err);
     next(err);
   }
 };

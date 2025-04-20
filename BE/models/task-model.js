@@ -1,7 +1,6 @@
 const sqlite3 = require("sqlite3").verbose();
 const { promisify } = require("util");
 const path = require("path");
-const { error } = require("console");
 const dbPath = path.join(__dirname, "../tasksdatabase.db");
 const db = new sqlite3.Database(dbPath);
 
@@ -31,7 +30,7 @@ exports.getTaskArrayToPost = async (title, description, status, duedate) => {
     return error;
   }
   const row = await dbAll(
-    `INSERT into tasks(title, description, status, duedate) VALUES ($1, $2, $3, $4);`,
+    `INSERT into tasks(title, description, status, duedate) VALUES (?, ?, ?, ?);`,
     [title, description, status, duedate]
   );
   console.log(row);
@@ -46,7 +45,7 @@ exports.getTaskToDelete = async (id) => {
     error.status = 404;
     return error;
   }
-  const row = await dbAll(`DELETE FROM tasks WHERE id = $1;`, [id]);
+  const row = await dbAll(`DELETE FROM tasks WHERE id = ?;`, [id]);
   return {
     msg: "Task has been deleted",
     status: 202,
@@ -61,7 +60,7 @@ exports.getTasktoUpdateStatus = async (status, id) => {
     error.status = 404;
     return error;
   }
-  const row = await dbAll("UPDATE tasks SET status = $1 WHERE id = $2;", [
+  const row = await dbAll("UPDATE tasks SET status = ? WHERE id = ?;", [
     status,
     id,
   ]);
