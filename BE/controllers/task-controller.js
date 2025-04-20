@@ -45,7 +45,8 @@ exports.deleteTask = async (req, res, next) => {
   const { id } = req.params;
   try {
     const task = await getTaskToDelete(id);
-    res.status(202);
+    console.log(task.status, "controller");
+    res.status(task.status).send(task.msg);
   } catch (err) {
     next(err);
   }
