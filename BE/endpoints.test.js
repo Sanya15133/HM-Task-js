@@ -51,7 +51,7 @@ test("POST /tasks/:id should return 400 bad task, if missing parameters", async 
   expect(result.body.task.status).toBe(400);
   expect(result.body.task.msg).toBe("Missing Parameters");
 });
-test.only("DELETE /tasks/:id should delete task by id", async () => {
+test("DELETE /tasks/:id should delete task by id", async () => {
   const result = await request(app).delete("/tasks/1");
   console.log(result.status);
   expect(result.status).toBe(202);

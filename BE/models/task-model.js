@@ -47,10 +47,10 @@ exports.getTaskToDelete = async (id) => {
     return error;
   }
   const row = await dbAll(`DELETE FROM tasks WHERE id = $1;`, [id]);
-  const error = new Error("Task has been deleted");
-  error.msg = "Task has been deleted";
-  error.status = 202;
-  return error;
+  return {
+    msg: "Task has been deleted",
+    status: 202,
+  };
 };
 
 exports.getTasktoUpdateStatus = async (status, id) => {
@@ -65,5 +65,8 @@ exports.getTasktoUpdateStatus = async (status, id) => {
     status,
     id,
   ]);
-  return row;
+  return {
+    msg: "Task status has been updated",
+    status: 200,
+  };
 };
