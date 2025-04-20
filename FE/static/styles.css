@@ -18,6 +18,7 @@ nav {
   position: relative;
   font-family: "GDS Transport", arial, sans-serif;
   font-size: xx-large;
+  border-bottom: 5px solid #376cce;
 }
 
 a {
@@ -26,4 +27,8 @@ a {
   text-decoration: none;
   font-size: 17px;
   display: block;
+}
+
+#task-div {
+  justify-content: left;
 }
