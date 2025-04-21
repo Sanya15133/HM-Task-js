@@ -38,7 +38,6 @@ form {
 
 label {
   margin-bottom: 4px;
-  font-weight: bold;
 }
 
 input {
@@ -50,6 +49,7 @@ button {
   padding: 10px;
   font-size: 1rem;
   cursor: pointer;
+  border-bottom: 3px solid black;
 }
 
 nav {
