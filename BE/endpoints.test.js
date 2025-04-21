@@ -68,7 +68,7 @@ test("PATCH /tasks/:id should update status when given valid id", async () => {
   expect(result.status).toBe(200);
   expect(result.body.msg).toBe("Task status has been updated");
 });
-test.only("PATCH /tasks/:id should return errror msg when given non-existant id", async () => {
+test("PATCH /tasks/:id should return errror msg when given non-existant id", async () => {
   const status = { status: "Complete" };
   const result = await request(app).patch("/tasks/10").send(status);
   expect(result.status).toBe(404);
