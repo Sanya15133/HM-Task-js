@@ -1,4 +1,4 @@
-async function getTasks() {
+async function getAllTasks() {
   const url = "http://localhost:3000/tasks";
   try {
     const response = await fetch(url);
