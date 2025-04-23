@@ -12,3 +12,14 @@ async function getAllTasks() {
     console.error(error.message);
   }
 }
+
+// const taskForm = document.getElementsByTagName("form");
+
+// taskForm.addEventListener("submit", (event) => {
+//   event.preventDefault();
+// });
+
+window.onload = () => {
+  const results = getAllTasks();
+  console.log(results);
+};

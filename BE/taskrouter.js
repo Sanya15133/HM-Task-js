@@ -7,6 +7,10 @@ const {
   updateTaskStatus,
 } = require("../BE/controllers/task-controller");
 
+// taskRouter.get("/", async (req, res) => {
+//   res.json([{ id: 1, title: "Test Task" }]);
+// });
+
 taskRouter.get("/", getTasks);
 taskRouter.post("/", postTask);
 taskRouter.get("/:id", getTaskById);
