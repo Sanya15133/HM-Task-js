@@ -19,7 +19,15 @@ async function getAllTasks() {
 //   event.preventDefault();
 // });
 
-window.onload = () => {
-  const results = getAllTasks();
-  console.log(results);
+window.onload = async () => {
+  const results = await getAllTasks();
+  const resultArray = results.tasks;
+  console.log(resultArray, "array");
+  const titleP = document.getElementById("title-p");
+  const statusP = document.getElementById("status-p");
+  const descriptionP = document.getElementById("description-p");
+  const duedateP = document.getElementById("due-date-p");
+  resultArray.forEach((result) => {
+    titleP.innerHTML = result.title;
+  });
 };
