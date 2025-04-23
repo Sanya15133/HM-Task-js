@@ -65,6 +65,10 @@ window.onload = async () => {
       const createDeleteButton = document.createElement("button");
       createDeleteButton.innerHTML = "Delete";
       createDeleteButton.id = "delete";
+      // createDeleteButton.style.backgroundColor = "red";
+      // createEditButton.style.backgroundColor = "blue";
+      // createDeleteButton.style.color = "white";
+      // createEditButton.style.color = "white";
       getButtonDiv.appendChild(createDeleteButton);
     });
   });
