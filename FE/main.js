@@ -28,6 +28,18 @@ window.onload = async () => {
   const descriptionP = document.getElementById("description-p");
   const duedateP = document.getElementById("due-date-p");
   resultArray.forEach((result) => {
+    const getButtonDiv = document.getElementById("button-div");
     titleP.innerHTML = result.title;
+    statusP.innerHTML = result.status;
+    descriptionP.innerHTML = result.description;
+    duedateP.innerHTML = result.duedate;
+    const createEditButton = document.createElement("button");
+    createEditButton.innerHTML = "Edit";
+    createEditButton.id = "edit";
+    getButtonDiv.appendChild(createEditButton);
+    const createDeleteButton = document.createElement("button");
+    createDeleteButton.innerHTML = "Delete";
+    createDeleteButton.id = "delete";
+    getButtonDiv.appendChild(createDeleteButton);
   });
 };

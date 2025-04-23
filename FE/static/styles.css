@@ -25,6 +25,17 @@ h3 {
   font-family: sans-serif;
 }
 
+#fetched-task {
+  margin: 0 auto;
+  font-family: sans-serif;
+  max-width: 400px;
+  justify-content: center;
+  text-align: center;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5%;
+}
+
 form {
   display: flex;
   flex-direction: column;
