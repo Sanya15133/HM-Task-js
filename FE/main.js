@@ -1,8 +1,8 @@
-async function getAllTasks() {
+const getAllTasks = async () => {
   const url = "http://localhost:3000/tasks";
   try {
     const response = await fetch(url);
-    if (!response.ok) {
+    if (!response) {
       throw new Error(`Response status: ${response.status}`);
     }
     const parseResponse = await response.json();
@@ -11,7 +11,22 @@ async function getAllTasks() {
   } catch (error) {
     console.error(error.message);
   }
-}
+};
+
+const getTaskById = async (id) => {
+  const url = `http://localhost:3000/tasks/${id}`;
+  try {
+    const response = await fetch(url);
+    if (!response) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const parseResponse = await response.json();
+    console.log(parseResponse);
+    return parseResponse;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
 
 // const taskForm = document.getElementsByTagName("form");
 
@@ -25,21 +40,30 @@ window.onload = async () => {
   console.log(resultArray, "array");
   const titleP = document.getElementById("title-p");
   const statusP = document.getElementById("status-p");
-  const descriptionP = document.getElementById("description-p");
-  const duedateP = document.getElementById("due-date-p");
+  // const descriptionP = document.getElementById("description-p");
+  // const duedateP = document.getElementById("due-date-p");
   resultArray.forEach((result) => {
-    const getButtonDiv = document.getElementById("button-div");
+    const getMoreInfoDiv = document.getElementById("more-info");
     titleP.innerHTML = result.title;
     statusP.innerHTML = result.status;
-    descriptionP.innerHTML = result.description;
-    duedateP.innerHTML = result.duedate;
-    const createEditButton = document.createElement("button");
-    createEditButton.innerHTML = "Edit";
-    createEditButton.id = "edit";
-    getButtonDiv.appendChild(createEditButton);
-    const createDeleteButton = document.createElement("button");
-    createDeleteButton.innerHTML = "Delete";
-    createDeleteButton.id = "delete";
-    getButtonDiv.appendChild(createDeleteButton);
+    // descriptionP.innerHTML = result.description;
+    // duedateP.innerHTML = result.duedate;
+    // const createEditButton = document.createElement("button");
+    const createMoreInfo = document.createElement("p");
+    createMoreInfo.innerHTML = "Click for more info";
+    createMoreInfo.style.color = "blue";
+    // createEditButton.innerHTML = "Edit";
+    // createEditButton.id = "edit";
+    // getButtonDiv.appendChild(createEditButton);
+    // const createDeleteButton = document.createElement("button");
+    // createDeleteButton.innerHTML = "Delete";
+    // createDeleteButton.id = "delete";
+    // getButtonDiv.appendChild(createDeleteButton);
+    getMoreInfoDiv.appendChild(createMoreInfo);
+    getMoreInfoDiv.addEventListener("click", async (event) => {
+      event.preventDefault();
+      const getById = await getTaskById(result.id);
+      console.log(getById);
+    });
   });
 };
