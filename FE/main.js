@@ -39,7 +39,7 @@ taskForm.addEventListener("submit", async (event) => {
   const title = document.getElementById("title").value;
   const description = document.getElementById("description").value;
   const status = document.getElementById("status").value;
-  const deadline = document.getElementById("duedate").value;
+  const duedate = document.getElementById("duedate").value;
 
   if (title.length > 5) {
     console.log("title too short");
@@ -52,6 +52,9 @@ taskForm.addEventListener("submit", async (event) => {
   }
   if (!deadline) {
     console.log("missing deadline");
+  }
+  if (!duedate) {
+    console.log("missing duedate");
   }
 });
 
