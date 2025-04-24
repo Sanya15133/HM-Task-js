@@ -35,7 +35,6 @@ exports.postTask = async (req, res, next) => {
   const { title, description, status, duedate } = req.body;
   try {
     const task = await getTaskArrayToPost(title, description, status, duedate);
-    console.log(task);
     res.status(201).send({ task });
   } catch (err) {
     next(err);
@@ -46,7 +45,6 @@ exports.deleteTask = async (req, res, next) => {
   const { id } = req.params;
   try {
     const task = await getTaskToDelete(id);
-    console.log(task, "controller");
     res.status(task.status).send(task.msg);
   } catch (err) {
     next(err);
@@ -56,7 +54,6 @@ exports.deleteTask = async (req, res, next) => {
 exports.updateTaskStatus = async (req, res, next) => {
   const { id } = req.params;
   const { status } = req.body;
-  console.log("REQ.BODY:", req.body);
   try {
     const task = await getTasktoUpdateStatus(status, id);
     res.status(task.status).json({ msg: task.msg });

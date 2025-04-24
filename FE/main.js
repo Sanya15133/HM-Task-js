@@ -6,7 +6,6 @@ const getAllTasks = async () => {
       throw new Error(`Response status: ${response.status}`);
     }
     const parseResponse = await response.json();
-    console.log(parseResponse);
     return parseResponse;
   } catch (error) {
     console.error(error.message);
@@ -21,15 +20,33 @@ const getTaskById = async (id) => {
       throw new Error(`Response status: ${response.status}`);
     }
     const parseResponse = await response.json();
-    console.log(parseResponse);
     return parseResponse;
   } catch (error) {
     console.error(error.message);
   }
 };
 
-const postTask = async (title, description, status, duedate) => {
+const postTaskValues = async (title, description, status, duedate) => {
   const url = "http://localhost:3000/tasks";
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        description,
+        status,
+        duedate,
+      }),
+    });
+    if (!response) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
 };
 
 const taskForm = document.getElementById("input-form");
@@ -41,21 +58,19 @@ taskForm.addEventListener("submit", async (event) => {
   const status = document.getElementById("status").value;
   const duedate = document.getElementById("duedate").value;
 
-  if (title.length > 5) {
+  if (title.length < 5) {
     console.log("title too short");
   }
-  if (description.length > 5) {
+  if (description.length < 5) {
     console.log("description too short");
   }
-  if (status.length > 5) {
+  if (status.length < 5) {
     console.log("status too short");
-  }
-  if (!deadline) {
-    console.log("missing deadline");
   }
   if (!duedate) {
     console.log("missing duedate");
   }
+  postTaskValues(title, description, status, duedate);
 });
 
 window.onload = async () => {
