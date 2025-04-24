@@ -19,6 +19,11 @@ h3 {
   text-align: center;
 }
 
+a {
+  font-weight: bolder;
+  font-size: xx-large;
+}
+
 #task-div {
   max-width: 400px;
   margin: 0 auto;
