@@ -28,6 +28,10 @@ const getTaskById = async (id) => {
   }
 };
 
+const postTask = async (title, description, status, duedate) => {
+  const url = "http://localhost:3000/tasks";
+};
+
 const taskForm = document.getElementById("input-form");
 
 taskForm.addEventListener("submit", async (event) => {
