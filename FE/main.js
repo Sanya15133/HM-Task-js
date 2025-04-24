@@ -28,11 +28,28 @@ const getTaskById = async (id) => {
   }
 };
 
-// const taskForm = document.getElementsByTagName("form");
+const taskForm = document.getElementById("input-form");
 
-// taskForm.addEventListener("submit", (event) => {
-//   event.preventDefault();
-// });
+taskForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const title = document.getElementById("title").value;
+  const description = document.getElementById("description").value;
+  const status = document.getElementById("status").value;
+  const deadline = document.getElementById("duedate").value;
+
+  if (title.length > 5) {
+    console.log("title too short");
+  }
+  if (description.length > 5) {
+    console.log("description too short");
+  }
+  if (status.length > 5) {
+    console.log("status too short");
+  }
+  if (!deadline) {
+    console.log("missing deadline");
+  }
+});
 
 window.onload = async () => {
   const results = await getAllTasks();
