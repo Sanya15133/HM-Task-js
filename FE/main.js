@@ -26,6 +26,23 @@ const getTaskById = async (id) => {
   }
 };
 
+const deleteTask = async (id) => {
+  const url = `http://localhost:3000/tasks/${id}`;
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
 const postTaskValues = async (title, description, status, duedate) => {
   const url = "http://localhost:3000/tasks";
   try {
@@ -43,6 +60,24 @@ const postTaskValues = async (title, description, status, duedate) => {
     });
     if (!response) {
       throw new Error(`Response status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+const updateStatus = async (id, status) => {
+  const url = `http://localhost:3000/tasks/${id}`;
+  try {
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status }),
+    });
+    if (!response) {
+      throw new Error(`Response.status: ${response.status}`);
     }
   } catch (error) {
     console.error(error.message);
@@ -73,17 +108,21 @@ taskForm.addEventListener("submit", async (event) => {
   postTaskValues(title, description, status, duedate);
 });
 
+const createEditButton = document.createElement("button");
+const createDeleteButton = document.createElement("button");
+const createMoreInfo = document.createElement("p");
+let taskId = "";
+
 window.onload = async () => {
   const results = await getAllTasks();
   const resultArray = results.tasks;
-  console.log(resultArray, "array");
   const titleP = document.getElementById("title-p");
   const statusP = document.getElementById("status-p");
   resultArray.forEach((result) => {
     const getMoreInfoDiv = document.getElementById("more-info");
+    taskId = result.id;
     titleP.innerHTML = result.title;
     statusP.innerHTML = result.status;
-    const createMoreInfo = document.createElement("p");
     createMoreInfo.innerHTML = "Click for more info";
     createMoreInfo.style.color = "blue";
 
@@ -96,15 +135,29 @@ window.onload = async () => {
       const duedateP = document.getElementById("due-date-p");
       descriptionP.innerHTML = result.description;
       duedateP.innerHTML = result.duedate;
-      const createEditButton = document.createElement("button");
       createEditButton.innerHTML = "Edit";
       createEditButton.id = "edit";
       const getButtonDiv = document.getElementById("button-div");
       getButtonDiv.appendChild(createEditButton);
-      const createDeleteButton = document.createElement("button");
       createDeleteButton.innerHTML = "Delete";
       createDeleteButton.id = "delete";
       getButtonDiv.appendChild(createDeleteButton);
     });
+  });
+  createEditButton.addEventListener("click", async (event) => {
+    event.preventDefault();
+    createEditButton.innerHTML = "Save";
+    const editInputBox = document.createElement("input");
+    statusP.appendChild(editInputBox);
+    const newVal = editInputBox.value;
+    createEditButton.addEventListener("click", async (event) => {
+      event.preventDefault();
+      statusP.innerHTML = newVal;
+      updateStatus(taskId, newVal);
+    });
+  });
+  createDeleteButton.addEventListener("click", async (event) => {
+    event.preventDefault();
+    deleteTask(taskId);
   });
 };
