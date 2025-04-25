@@ -106,7 +106,7 @@ taskForm.addEventListener("submit", async (event) => {
   if (!duedate) {
     console.log("missing duedate");
   }
-  postTaskValues(title, description, status, duedate);
+  await postTaskValues(title, description, status, duedate);
 });
 
 const createEditButton = document.createElement("button");
