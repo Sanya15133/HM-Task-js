@@ -62,14 +62,14 @@ test("DELETE /tasks/:id should send error when given non-existent id", async () 
   expect(result.status).toBe(404);
   expect(result.text).toBe("Task cannot be found");
 });
-test("PATCH /tasks/:id should update status when given valid id", async () => {
-  const status = { status: "Complete" };
+test.only("PATCH /tasks/:id should update status when given valid id", async () => {
+  const status = "Complete" 
   const result = await request(app).patch("/tasks/1").send(status);
   expect(result.status).toBe(200);
   expect(result.body.msg).toBe("Task status has been updated");
 });
 test("PATCH /tasks/:id should return errror msg when given non-existant id", async () => {
-  const status = { status: "Complete" };
+  const status = "Complete";
   const result = await request(app).patch("/tasks/10").send(status);
   expect(result.status).toBe(404);
   expect(result.body.msg).toBe("Task cannot be found");

@@ -68,6 +68,7 @@ const postTaskValues = async (title, description, status, duedate) => {
 
 const updateStatus = async (id, status) => {
   const url = `http://localhost:3000/tasks/${id}`;
+  console.log(status, "status");
   try {
     const response = await fetch(url, {
       method: "PATCH",
@@ -144,20 +145,30 @@ window.onload = async () => {
       getButtonDiv.appendChild(createDeleteButton);
     });
   });
+  let isEditing = false;
+
   createEditButton.addEventListener("click", async (event) => {
     event.preventDefault();
-    createEditButton.innerHTML = "Save";
-    const editInputBox = document.createElement("input");
-    statusP.appendChild(editInputBox);
-    const newVal = editInputBox.value;
-    createEditButton.addEventListener("click", async (event) => {
-      event.preventDefault();
+    if (!isEditing) {
+      isEditing = true;
+      createEditButton.innerHTML = "Save";
+      const currentStatus = statusP.innerText;
+      statusP.innerHTML = "";
+      const editInputBox = document.createElement("input");
+      editInputBox.value = currentStatus;
+      statusP.appendChild(editInputBox);
+    } else {
+      isEditing = false;
+      createEditButton.innerHTML = "Edit";
+      const editInputBox = statusP.querySelector("input");
+      const newVal = editInputBox.value;
       statusP.innerHTML = newVal;
-      updateStatus(taskId, newVal);
-    });
+      console.log(newVal, "new val");
+      await updateStatus(taskId, newVal);
+    }
   });
   createDeleteButton.addEventListener("click", async (event) => {
     event.preventDefault();
-    deleteTask(taskId);
+    await deleteTask(taskId);
   });
 };

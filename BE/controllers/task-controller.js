@@ -56,7 +56,8 @@ exports.updateTaskStatus = async (req, res, next) => {
   const { status } = req.body;
   try {
     const task = await getTasktoUpdateStatus(status, id);
-    res.status(task.status).json({ msg: task.msg });
+    console.log(task, "task");
+    res.status(task.status).send(task.msg);
   } catch (err) {
     console.log(err);
     next(err);
