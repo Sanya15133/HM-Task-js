@@ -33,7 +33,6 @@ exports.getTaskArrayToPost = async (title, description, status, duedate) => {
     `INSERT into tasks(title, description, status, duedate) VALUES (?, ?, ?, ?);`,
     [title, description, status, duedate]
   );
-  console.log(row);
   return row;
 };
 
@@ -53,7 +52,6 @@ exports.getTaskToDelete = async (id) => {
 };
 
 exports.getTasktoUpdateStatus = async (status, id) => {
-  console.log(status, "in model");
   const findRow = await this.fetchTaskById(id);
   if (findRow.msg === "Task cannot be found") {
     const error = new Error("Task cannot be found");
