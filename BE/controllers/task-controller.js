@@ -10,7 +10,7 @@ exports.getTasks = async (req, res, next) => {
   try {
     const tasks = await fetchTasks();
     if (tasks.length === 0) {
-      console.log("No tasks found in DB");
+      console.error("No tasks found in DB");
     }
     res.status(200).send({ tasks });
   } catch (err) {
@@ -23,7 +23,7 @@ exports.getTaskById = async (req, res, next) => {
   try {
     const task = await fetchTaskById(id);
     if (task.length === 0) {
-      console.log("No tasks found in DB");
+      console.error("No tasks found in DB");
     }
     res.status(200).send({ task });
   } catch (err) {
@@ -56,10 +56,8 @@ exports.updateTaskStatus = async (req, res, next) => {
   const { status } = req.body;
   try {
     const task = await getTasktoUpdateStatus(status, id);
-    console.log(task, "task");
     res.status(task.status).send(task.msg);
   } catch (err) {
-    console.log(err);
     next(err);
   }
 };
