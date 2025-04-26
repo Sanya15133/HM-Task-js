@@ -109,66 +109,44 @@ taskForm.addEventListener("submit", async (event) => {
   await postTaskValues(title, description, status, duedate);
 });
 
-const createEditButton = document.createElement("button");
-const createDeleteButton = document.createElement("button");
-const createMoreInfo = document.createElement("p");
 let taskId = "";
 
-window.onload = async () => {
-  const results = await getAllTasks();
-  const resultArray = results.tasks;
-  const titleP = document.getElementById("title-p");
-  const statusP = document.getElementById("status-p");
-  resultArray.forEach((result) => {
-    const getMoreInfoDiv = document.getElementById("more-info");
-    taskId = result.id;
-    titleP.innerHTML = result.title;
-    statusP.innerHTML = result.status;
-    createMoreInfo.innerHTML = "Click for more info";
-    createMoreInfo.style.color = "blue";
+const displayButton = document.getElementById("display-button");
+displayButton.addEventListener("click", async (event) => {
+  event.preventDefault();
+  console.log("hello");
+  await displayTasks();
+});
 
-    getMoreInfoDiv.appendChild(createMoreInfo);
-    getMoreInfoDiv.addEventListener("click", async (event) => {
-      event.preventDefault();
-      const getById = await getTaskById(result.id);
-      createMoreInfo.innerHTML = "";
-      const descriptionP = document.getElementById("description-p");
-      const duedateP = document.getElementById("due-date-p");
-      descriptionP.innerHTML = result.description;
-      duedateP.innerHTML = result.duedate;
-      createEditButton.innerHTML = "Edit";
-      createEditButton.id = "edit";
-      const getButtonDiv = document.getElementById("button-div");
-      getButtonDiv.appendChild(createEditButton);
-      createDeleteButton.innerHTML = "Delete";
-      createDeleteButton.id = "delete";
-      getButtonDiv.appendChild(createDeleteButton);
-    });
-  });
-  let isEditing = false;
+let isEditing = false;
 
-  createEditButton.addEventListener("click", async (event) => {
-    event.preventDefault();
-    if (!isEditing) {
-      isEditing = true;
-      createEditButton.innerHTML = "Save";
-      const currentStatus = statusP.innerText;
-      statusP.innerHTML = "";
-      const editInputBox = document.createElement("input");
-      editInputBox.value = currentStatus;
-      statusP.appendChild(editInputBox);
-    } else {
-      isEditing = false;
-      createEditButton.innerHTML = "Edit";
-      const editInputBox = statusP.querySelector("input");
-      const newVal = editInputBox.value;
-      statusP.innerHTML = newVal;
-      console.log(newVal, "new val");
-      await updateStatus(taskId, newVal);
-    }
-  });
-  createDeleteButton.addEventListener("click", async (event) => {
-    event.preventDefault();
-    await deleteTask(taskId);
-  });
-};
+const createEditButton = document.createElement("button");
+
+createEditButton.addEventListener("click", async (event) => {
+  console.log("hello in edit button");
+  event.preventDefault();
+  if (!isEditing) {
+    isEditing = true;
+    createEditButton.innerHTML = "Save";
+    const currentStatus = statusP.innerText;
+    statusP.innerHTML = "";
+    const editInputBox = document.createElement("input");
+    editInputBox.value = currentStatus;
+    statusP.appendChild(editInputBox);
+  } else {
+    isEditing = false;
+    createEditButton.innerHTML = "Edit";
+    const editInputBox = statusP.querySelector("input");
+    const newVal = editInputBox.value;
+    statusP.innerHTML = newVal;
+    console.log(newVal, "new val");
+    await updateStatus(taskId, newVal);
+  }
+});
+
+const createDeleteButton = document.createElement("button");
+
+createDeleteButton.addEventListener("click", async (event) => {
+  event.preventDefault();
+  await deleteTask(taskId);
+});
