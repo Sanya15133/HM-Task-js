@@ -132,9 +132,8 @@ const displayTasks = async () => {
     moreInfoP.addEventListener("click", async (event) => {
       event.preventDefault();
       const getTask = await getTaskById(task.id);
-      const displayDiv = document.getElementById("fetched-task");
       const individualTask = getTask.task[0];
-      console.log(individualTask);
+      displayDiv.innerHTML = "";
       let taskTitle = document.createElement("p");
       let descriptionP = document.createElement("p");
       const taskDiv2 = document.createElement("div");
