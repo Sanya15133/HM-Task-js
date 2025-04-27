@@ -111,6 +111,49 @@ taskForm.addEventListener("submit", async (event) => {
 
 let taskId = "";
 
+const displayTasks = async () => {
+  const results = await getAllTasks();
+  const taskArray = results.tasks;
+  const displayDiv = document.getElementById("fetched-task");
+  taskArray.forEach((task) => {
+    let taskTitle = document.createElement("p");
+    let descriptionP = document.createElement("p");
+    const taskDiv = document.createElement("div");
+    const moreInfoP = document.createElement("p");
+    moreInfoP.innerHTML = "Click for more info";
+    moreInfoP.style.color = "blue";
+    taskTitle.innerHTML = `${task.title}`;
+    descriptionP.innerHTML = `${task.description}`;
+    taskDiv.append(taskTitle);
+    taskDiv.append(descriptionP);
+    taskDiv.append(moreInfoP);
+    taskDiv.className = "t-div";
+    displayDiv.append(taskDiv);
+    moreInfoP.addEventListener("click", async (event) => {
+      event.preventDefault();
+      const getTask = await getTaskById(task.id);
+      const displayDiv = document.getElementById("fetched-task");
+      const individualTask = getTask.task[0];
+      console.log(individualTask);
+      let taskTitle = document.createElement("p");
+      let descriptionP = document.createElement("p");
+      const taskDiv2 = document.createElement("div");
+      taskDiv2.className = "t-div";
+      let statusP = document.createElement("p");
+      let dateP = document.createElement("p");
+      taskTitle.innerHTML = individualTask.title;
+      descriptionP.innerHTML = individualTask.description;
+      statusP.innerHTML = individualTask.status;
+      dateP.innerHTML = individualTask.duedate;
+      taskDiv2.append(taskTitle);
+      taskDiv2.append(statusP);
+      taskDiv2.append(dateP);
+      taskDiv2.append(descriptionP);
+      displayDiv.append(taskDiv2);
+    });
+  });
+};
+
 const displayButton = document.getElementById("display-button");
 displayButton.addEventListener("click", async (event) => {
   event.preventDefault();

@@ -30,15 +30,17 @@ a {
   font-family: sans-serif;
 }
 
-#t-div {
+.t-div {
   margin: 0 auto;
+  margin-bottom: 3%;
   font-family: sans-serif;
   max-width: 400px;
   justify-content: center;
   text-align: center;
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid lightgrey;
   border-radius: 5%;
+  border-bottom: 3px solid lightgray;
 }
 
 form {
