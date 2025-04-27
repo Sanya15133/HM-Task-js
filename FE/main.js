@@ -2,7 +2,7 @@ const getAllTasks = async () => {
   const url = "http://localhost:3000/tasks";
   try {
     const response = await fetch(url);
-    if (!response) {
+    if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
     const parseResponse = await response.json();
@@ -16,7 +16,7 @@ const getTaskById = async (id) => {
   const url = `http://localhost:3000/tasks/${id}`;
   try {
     const response = await fetch(url);
-    if (!response) {
+    if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
     const parseResponse = await response.json();
@@ -35,7 +35,7 @@ const deleteTask = async (id) => {
         "Content-Type": "application/json",
       },
     });
-    if (!response) {
+    if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
   } catch (error) {
@@ -43,7 +43,7 @@ const deleteTask = async (id) => {
   }
 };
 
-const postTaskValues = async (title, description, status, duedate) => {
+const postTaskValues = async (title, description = "", status, duedate) => {
   const url = "http://localhost:3000/tasks";
   try {
     const response = await fetch(url, {
@@ -58,7 +58,7 @@ const postTaskValues = async (title, description, status, duedate) => {
         duedate,
       }),
     });
-    if (!response) {
+    if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
   } catch (error) {
@@ -77,7 +77,7 @@ const updateStatus = async (id, status) => {
       },
       body: JSON.stringify({ status }),
     });
-    if (!response) {
+    if (!response.ok) {
       throw new Error(`Response.status: ${response.status}`);
     }
   } catch (error) {
@@ -96,9 +96,6 @@ taskForm.addEventListener("submit", async (event) => {
 
   if (title.length < 5) {
     console.log("title too short");
-  }
-  if (description.length < 5) {
-    console.log("description too short");
   }
   if (status.length < 5) {
     console.log("status too short");

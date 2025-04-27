@@ -13,7 +13,7 @@ Task Requirements for POST
 title, description, status, due date, will also need unique ID
 
 CREATE TABLE tasks ( title TEXT NOT NULL,
-id INTEGER PRIMARY KEY, description TEXT NOT NULL, 
+id INTEGER PRIMARY KEY, description TEXT, 
 status TEXT NOT NULL, duedate DATE
 );
 

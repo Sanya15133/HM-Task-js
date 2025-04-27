@@ -22,11 +22,16 @@ exports.fetchTaskById = async (id) => {
   return row;
 };
 
-exports.getTaskArrayToPost = async (title, description, status, duedate) => {
+exports.getTaskArrayToPost = async (
+  title,
+  description = "",
+  status,
+  duedate
+) => {
   const error = new Error("Missing Parameters");
   error.msg = "Missing Parameters";
   error.status = 400;
-  if (!title || !description || !status || !duedate) {
+  if (!title || !status || !duedate) {
     return error;
   }
   const row = await dbAll(
