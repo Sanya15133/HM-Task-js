@@ -17,4 +17,8 @@ id INTEGER PRIMARY KEY, description TEXT NOT NULL,
 status TEXT NOT NULL, duedate DATE
 );
 
- INSERT into tasks (title, description, status, duedate) VALUES ('Review', 'Annual review', 'Pending', '08/11/2026');
+INSERT into tasks (title, description, status, duedate) VALUES ('Review', 'Annual review', 'Pending', '08/11/2026');
+
+INSERT into tasks (title, description, status, duedate) VALUES ('Budget', 'Annual budget', 'Pending', '08/11/2026');
+
+INSERT into tasks (title, description, status, duedate) VALUES ('Staff lunch', 'Lunch', 'Complete', '08/11/2026');
