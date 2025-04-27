@@ -109,7 +109,7 @@ taskForm.addEventListener("submit", async (event) => {
   await postTaskValues(title, description, status, duedate);
 });
 
-let taskId = "";
+let isEditing = false;
 
 const displayTasks = async () => {
   const results = await getAllTasks();
@@ -139,16 +139,46 @@ const displayTasks = async () => {
       const taskDiv2 = document.createElement("div");
       taskDiv2.className = "t-div";
       let statusP = document.createElement("p");
+      statusP.id = "status";
       let dateP = document.createElement("p");
       taskTitle.innerHTML = individualTask.title;
       descriptionP.innerHTML = individualTask.description;
       statusP.innerHTML = individualTask.status;
       dateP.innerHTML = individualTask.duedate;
+      const createEditButton = document.createElement("button");
+      const createDeleteButton = document.createElement("button");
       taskDiv2.append(taskTitle);
       taskDiv2.append(statusP);
       taskDiv2.append(dateP);
       taskDiv2.append(descriptionP);
+      createEditButton.innerHTML = "Edit";
+      taskDiv2.append(createEditButton);
+      createDeleteButton.innerHTML = "Delete";
+      taskDiv2.append(createDeleteButton);
       displayDiv.append(taskDiv2);
+      createEditButton.addEventListener("click", async (event) => {
+        event.preventDefault();
+        if (!isEditing) {
+          isEditing = true;
+          const editInputBox = document.createElement("input");
+          editInputBox.type = "text";
+          editInputBox.value = statusP.innerHTML;
+          statusP.innerHTML = "";
+          statusP.appendChild(editInputBox);
+          createEditButton.innerHTML = "Save";
+        } else {
+          isEditing = false;
+          const editInputBox = statusP.querySelector("input");
+          const newVal = editInputBox.value;
+          statusP.innerHTML = newVal;
+          createEditButton.innerHTML = "Edit";
+          await updateStatus(task.id, newVal);
+        }
+      });
+      createDeleteButton.addEventListener("click", async (event) => {
+        event.preventDefault();
+        await deleteTask(task.id);
+      });
     });
   });
 };
@@ -156,39 +186,5 @@ const displayTasks = async () => {
 const displayButton = document.getElementById("display-button");
 displayButton.addEventListener("click", async (event) => {
   event.preventDefault();
-  console.log("hello");
   await displayTasks();
-});
-
-let isEditing = false;
-
-const createEditButton = document.createElement("button");
-
-createEditButton.addEventListener("click", async (event) => {
-  console.log("hello in edit button");
-  event.preventDefault();
-  if (!isEditing) {
-    isEditing = true;
-    createEditButton.innerHTML = "Save";
-    const currentStatus = statusP.innerText;
-    statusP.innerHTML = "";
-    const editInputBox = document.createElement("input");
-    editInputBox.value = currentStatus;
-    statusP.appendChild(editInputBox);
-  } else {
-    isEditing = false;
-    createEditButton.innerHTML = "Edit";
-    const editInputBox = statusP.querySelector("input");
-    const newVal = editInputBox.value;
-    statusP.innerHTML = newVal;
-    console.log(newVal, "new val");
-    await updateStatus(taskId, newVal);
-  }
-});
-
-const createDeleteButton = document.createElement("button");
-
-createDeleteButton.addEventListener("click", async (event) => {
-  event.preventDefault();
-  await deleteTask(taskId);
 });
