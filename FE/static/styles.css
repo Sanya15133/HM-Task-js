@@ -10,6 +10,7 @@ button,
 label {
   color: black;
   font-family: "GDS Transport", arial, sans-serif;
+  font-weight: lighter;
 }
 
 h1,
